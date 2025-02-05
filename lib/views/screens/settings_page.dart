@@ -18,6 +18,7 @@ class _SettingPageState extends State<SettingPage> {
         title: const Text('Settings'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const TextFieldImput(
             labelText: 'Broker',
@@ -26,6 +27,9 @@ class _SettingPageState extends State<SettingPage> {
               size: 50.0,
             ),
           ),
+          const Text('Example: localhost, 192.168.1.94',
+              textAlign: TextAlign.start,
+              style: TextStyle(color: Colors.grey, fontSize: 15)),
           const TextFieldImput(
             labelText: 'Route',
             icon: Icon(
@@ -33,6 +37,9 @@ class _SettingPageState extends State<SettingPage> {
               size: 50.0,
             ),
           ),
+          const Text('Example: casa_rayner/turbina',
+              textAlign: TextAlign.start,
+              style: TextStyle(color: Colors.grey, fontSize: 15)),
           const TextFieldImput(
             labelText: 'Action',
             icon: Icon(
@@ -40,6 +47,9 @@ class _SettingPageState extends State<SettingPage> {
               size: 50.0,
             ),
           ),
+          const Text('Example: casa_rayner/turbina/action',
+              textAlign: TextAlign.start,
+              style: TextStyle(color: Colors.grey, fontSize: 15)),
           const SizedBox(height: 60),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
