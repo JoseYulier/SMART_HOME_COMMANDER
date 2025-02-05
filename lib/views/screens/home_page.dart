@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
                     'Elevated Tank',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 18,
                         color: Colors.black,
                         fontWeight: FontWeight.bold),
                   ),
@@ -70,10 +70,10 @@ class HomePage extends StatelessWidget {
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
-                    'Cisterna',
+                    'Cistern',
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: 18,
                         color: Colors.black,
                         fontWeight: FontWeight.bold),
                   ),
@@ -95,14 +95,16 @@ class HomePage extends StatelessWidget {
                 'Turbine Data',
                 textAlign: TextAlign.left,
                 style: TextStyle(
-                    fontSize: 15,
+                    fontSize: 18,
                     color: Colors.black,
                     fontWeight: FontWeight.bold),
               ),
             ),
           ),
           const SizedBox(height: 30),
-          CustomStatefulButton(text: 'Fill', onPressed: () {}),
+          CustomButtonFul(
+            onPressed: () {},
+          ),
         ],
       ),
     );
