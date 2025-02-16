@@ -1,12 +1,17 @@
+import 'package:smart_home_commander/providers/turbine_provider.dart';
+//import 'package:smart_home_commander/views/animations/water_tank_animation.dart';
 import 'package:smart_home_commander/views/components/custom_button.dart';
 import 'package:smart_home_commander/views/screens/settings_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final turbineModel = Provider.of<TurbineModel>(context);
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -48,16 +53,20 @@ class HomePage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 width: 150,
                 height: 300,
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Elevated Tank',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold),
-                  ),
+                child: Stack(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'Elevated Tank',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Container(
@@ -103,7 +112,13 @@ class HomePage extends StatelessWidget {
           ),
           const SizedBox(height: 30),
           CustomButtonFul(
-            onPressed: () {},
+            onPressed: () {
+              if (turbineModel.isConnect) {
+                turbineModel.powerOff();
+              } else {
+                turbineModel.powerOn();
+              }
+            },
           ),
         ],
       ),
