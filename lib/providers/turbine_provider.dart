@@ -6,43 +6,43 @@ class TurbineModel extends ChangeNotifier {
   bool _isConnect = false;
   int _levelPercent = 0;
   int _fillPercentage = 0;
-  TurbineMqtt? _turbineMqtt ;
+  TurbineMqtt? _turbineMqtt;
 
   bool get isConnect => _isConnect;
   int get fillPercentage => _fillPercentage;
   int get levelPercent => _levelPercent;
 
-  TurbineModel(){
+  TurbineModel() {
     _turbineMqtt = TurbineMqtt(
-      broker: "192.168.1.94",
-      topic: "casa_rayner/turbina",
-      topicAction: "casa_rayner/turbina/action"
-      );
+        broker: "192.168.1.94",
+        topic: "casa_rayner/turbina",
+        topicAction: "casa_rayner/turbina/action");
     // Get status turbine stream
     _turbineMqtt?.status.listen((TurbineStatus status) => updateStatus(status));
   }
 
-  // Update turbine status from stream 
-  void updateStatus(TurbineStatus status) async{
-    _isConnect = status.running==1 ? true : false;
-    _levelPercent = status.levelPercent != null ? status.levelPercent as int : -1;
+  // Update turbine status from stream
+  void updateStatus(TurbineStatus status) async {
+    _isConnect = status.running == 1 ? true : false;
+    _levelPercent =
+        status.levelPercent != null ? status.levelPercent as int : -1;
     notifyListeners();
   }
 
-  void powerOn() async{
+  void powerOn() async {
     await _turbineMqtt?.powerOn();
     notifyListeners();
   }
 
-  void powerOff() async{
+  void powerOff() async {
     await _turbineMqtt?.powerOff();
     notifyListeners();
   }
 
-  void togglePower() async{
-    if (_isConnect){
+  void togglePower() async {
+    if (_isConnect) {
       powerOff();
-    }else{
+    } else {
       powerOn();
     }
   }
@@ -54,5 +54,11 @@ class TurbineModel extends ChangeNotifier {
     }
   }
 
+  void saveSettings(
+      {required String broker, required String route, String? action}) {
+    _turbineMqtt =
+        TurbineMqtt(broker: broker, topic: route, topicAction: action ?? '');
+    // Get status turbine stream
+    _turbineMqtt?.status.listen((TurbineStatus status) => updateStatus(status));
+  }
 }
-
