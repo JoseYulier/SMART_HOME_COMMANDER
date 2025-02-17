@@ -112,12 +112,9 @@ class HomePage extends StatelessWidget {
           ),
           const SizedBox(height: 30),
           CustomButtonFul(
+            powerStatus: turbineModel.isConnect,
             onPressed: () {
-              if (turbineModel.isConnect) {
-                turbineModel.powerOff();
-              } else {
-                turbineModel.powerOn();
-              }
+              turbineModel.togglePower();
             },
           ),
         ],

@@ -43,19 +43,19 @@ class _CustomStatefulButtonState extends State<CustomStatefulButton> {
 
 class CustomButtonFul extends StatefulWidget {
   final VoidCallback onPressed;
-  const CustomButtonFul({super.key, required this.onPressed});
+  final bool powerStatus;
+
+  const CustomButtonFul({super.key, required this.onPressed, required this.powerStatus});
 
   @override
   CustomButtonFulState createState() => CustomButtonFulState();
 }
 
 class CustomButtonFulState extends State<CustomButtonFul> {
-  bool _isPressed = false;
+
+  CustomButtonFulState();
 
   void _onPressed() {
-    setState(() {
-      _isPressed = !_isPressed;
-    });
     widget.onPressed();
   }
 
@@ -67,14 +67,14 @@ class CustomButtonFulState extends State<CustomButtonFul> {
         width: 120,
         height: 40,
         decoration: BoxDecoration(
-          color: _isPressed ? Colors.red : Colors.green,
+          color: widget.powerStatus ? Colors.red : Colors.green,
           borderRadius: BorderRadius.circular(20),
         ),
         child: Padding(
           padding: const EdgeInsets.all(4.0),
           child: Text(
             textAlign: TextAlign.center,
-            _isPressed ? 'Turn Off' : 'Fill',
+            widget.powerStatus ? 'Turn Off' : 'Fill',
             style: const TextStyle(
               color: Colors.white,
               fontSize: 20,

@@ -1,26 +1,58 @@
 import 'package:flutter/foundation.dart';
+import 'package:smart_home_commander/service/turbine_mqtt.dart';
+import 'package:smart_home_commander/service/turbine/status.dart';
 
 class TurbineModel extends ChangeNotifier {
   bool _isConnect = false;
-  double _fillPercentage = 0.0;
+  int _levelPercent = 0;
+  int _fillPercentage = 0;
+  TurbineMqtt? _turbineMqtt ;
 
   bool get isConnect => _isConnect;
-  double get fillPercentage => _fillPercentage;
+  int get fillPercentage => _fillPercentage;
+  int get levelPercent => _levelPercent;
 
-  void powerOn() {
-    _isConnect = true;
+  TurbineModel(){
+    _turbineMqtt = TurbineMqtt(
+      broker: "192.168.1.94",
+      topic: "casa_rayner/turbina",
+      topicAction: "casa_rayner/turbina/action"
+      );
+    // Get status turbine stream
+    _turbineMqtt?.status.listen((TurbineStatus status) => updateStatus(status));
+  }
+
+  // Update turbine status from stream 
+  void updateStatus(TurbineStatus status) async{
+    _isConnect = status.running==1 ? true : false;
+    _levelPercent = status.levelPercent != null ? status.levelPercent as int : -1;
     notifyListeners();
   }
 
-  void powerOff() {
-    _isConnect = false;
+  void powerOn() async{
+    await _turbineMqtt?.powerOn();
     notifyListeners();
   }
 
-  void fillTo(double percentage) {
-    if (percentage >= 0.0 && percentage <= 100.0) {
-      _fillPercentage = percentage;
+  void powerOff() async{
+    await _turbineMqtt?.powerOff();
+    notifyListeners();
+  }
+
+  void togglePower() async{
+    if (_isConnect){
+      powerOff();
+    }else{
+      powerOn();
+    }
+  }
+
+  void fillTo(int percentage) {
+    if (percentage >= 0 && percentage <= 100) {
+      _turbineMqtt?.stopLevel(percentage);
       notifyListeners();
     }
   }
+
 }
+
