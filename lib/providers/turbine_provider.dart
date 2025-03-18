@@ -1,18 +1,21 @@
 import 'package:flutter/foundation.dart';
-import 'package:smart_home_commander/service/turbine_mqtt.dart';
+import 'package:smart_home_commander/service/turbine_mqtt_fake.dart';
 import 'package:smart_home_commander/service/turbine/status.dart';
 
-class TurbineModel extends ChangeNotifier {
+class TurbineProvider extends ChangeNotifier {
   bool _isConnect = false;
   int _levelPercent = 0;
-  int _fillPercentage = 0;
+  int _levelStopTank = 100;
+  int _rateFluxFlow = 0;
+
   TurbineMqtt? _turbineMqtt;
 
   bool get isConnect => _isConnect;
-  int get fillPercentage => _fillPercentage;
   int get levelPercent => _levelPercent;
+  int get levelStopTank => _levelStopTank;
+  int get rateFluxFlow => _rateFluxFlow;
 
-  TurbineModel() {
+  TurbineProvider() {
     _turbineMqtt = TurbineMqtt(
         broker: "192.168.1.94",
         topic: "casa_rayner/turbina",
@@ -26,6 +29,9 @@ class TurbineModel extends ChangeNotifier {
     _isConnect = status.running == 1 ? true : false;
     _levelPercent =
         status.levelPercent != null ? status.levelPercent as int : -1;
+    _levelStopTank =
+        status.levelPercentStop != null ? status.levelPercentStop as int : -1;
+    _rateFluxFlow = status.rate != null ? status.rate as int : -1;
     notifyListeners();
   }
 

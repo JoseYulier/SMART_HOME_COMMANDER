@@ -17,7 +17,7 @@ class SettingPageState extends State<SettingPage> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
-    final turbineModel = Provider.of<TurbineModel>(context);
+    final turbineModel = Provider.of<TurbineProvider>(context);
     TextEditingController textControllerBroker = TextEditingController();
     TextEditingController textControllerRoute = TextEditingController();
     TextEditingController textControllerAction = TextEditingController();

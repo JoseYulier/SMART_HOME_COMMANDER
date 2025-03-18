@@ -1,12 +1,12 @@
-import 'package:smart_home_commander/views/screens/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_home_commander/providers/turbine_provider.dart';
+import 'package:smart_home_commander/views/screens/splash_page.dart';
 
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (context) => TurbineModel(),
+      create: (context) => TurbineProvider(),
       child: MainApp(),
     ),
   );
@@ -23,7 +23,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: const SplashPage(),
     );
   }
 }
