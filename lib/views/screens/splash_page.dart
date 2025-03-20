@@ -35,18 +35,16 @@ class _SplashPageState extends State<SplashPage> {
       ),
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: Center(
-        child: Center(
-          child: Column(
-            children: [
-              // Image.asset(
-              // 'assets/logo_prueba.png',
-              //width: 150,
-              //height: 150,
-              //),
-              Text('S.H.C App',
-                  style: TextStyle(fontSize: 40, color: Colors.white)),
-            ],
-          ),
+        child: Column(
+          children: [
+            // Image.asset(
+            // 'assets/logo_prueba.png',
+            //width: 150,
+            //height: 150,
+            //),
+            Text('S.H.C App',
+                style: TextStyle(fontSize: 40, color: Colors.white)),
+          ],
         ),
       ),
     );

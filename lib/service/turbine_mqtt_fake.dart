@@ -14,7 +14,7 @@ class TurbineMqtt {
   TurbineStatus turbineStatus = TurbineStatus(
       running: 0,
       datetimeStart: DateTime.now(),
-      secondsLeft: 0,
+      secondsLeft: 20,
       levelPercent: 40,
       levelAdc: 340,
       levelPercentStop: 100,

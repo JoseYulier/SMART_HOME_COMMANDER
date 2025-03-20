@@ -73,7 +73,7 @@ class HomePage extends StatelessWidget {
                       ),
                       Positioned(
                         top: 50,
-                        left: 45,
+                        left: 35,
                         child: Container(
                           width: 80,
                           height: 20,
@@ -88,7 +88,7 @@ class HomePage extends StatelessWidget {
                       ),
                       Positioned(
                         top: 70,
-                        left: 25,
+                        left: 15,
                         child: WaterTankAnimation(
                           isConnect: turbineProvider.isConnect,
                           levelTank: turbineProvider.levelPercent,
@@ -150,7 +150,7 @@ class HomePage extends StatelessWidget {
                       ),
                       SizedBox(width: 30),
                       Text(
-                        'Time left: 10 min',
+                        'Time left: ${turbineProvider.rateFluxFlow} min',
                         style: TextStyle(
                           fontSize: 15,
                         ),
@@ -191,7 +191,7 @@ class HomePage extends StatelessWidget {
                   );
                 },
               );
-              Future.delayed(Duration(seconds: 3), () {
+              Future.delayed(Duration(seconds: 2), () {
                 // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
               });

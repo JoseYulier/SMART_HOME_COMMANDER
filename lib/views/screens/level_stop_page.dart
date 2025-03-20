@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_home_commander/views/components/custom_button.dart';
 
 class LevelStopPage extends StatefulWidget {
   const LevelStopPage({super.key});
@@ -8,8 +9,53 @@ class LevelStopPage extends StatefulWidget {
 }
 
 class _LevelStopPageState extends State<LevelStopPage> {
+  double levelStop = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text('Stop Level Filling Panel'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Selected Value: ${levelStop.round().toString()} %',
+              style: TextStyle(fontSize: 20),
+            ),
+            Slider(
+              value: levelStop,
+              min: 0,
+              max: 100,
+              divisions: 20,
+              label: levelStop.round().toString(),
+              onChanged: (double value) {
+                setState(() {
+                  levelStop = value;
+                });
+              },
+            ),
+            const SizedBox(height: 60),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                CustomStatefulButton(
+                    text: 'Cancel',
+                    color: Colors.redAccent,
+                    onPressed: () {
+                      Navigator.pop(
+                        context,
+                      );
+                    }),
+                CustomStatefulButton(
+                    text: 'Accept', color: Colors.green, onPressed: () {}),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
