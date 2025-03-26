@@ -38,7 +38,10 @@ class _WaterTankAnimationState extends State<WaterTankAnimation>
             ),
             Text(
               '${widget.levelTank}%',
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),

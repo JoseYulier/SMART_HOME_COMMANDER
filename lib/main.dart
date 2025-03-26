@@ -7,7 +7,7 @@ void main() {
   runApp(
     ChangeNotifierProvider(
       create: (context) => TurbineProvider(),
-      child: MainApp(),
+      child: const MainApp(),
     ),
   );
 }

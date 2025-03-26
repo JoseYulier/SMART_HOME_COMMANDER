@@ -16,42 +16,42 @@ class TurbineMqtt {
   MqttServerClient? client;
   bool isConnect = false;
 
-  TurbineMqtt({
-    required this.broker,
-    required this.topic,
-    required this.topicAction
-  }){
+  TurbineMqtt(
+      {required this.broker, required this.topic, required this.topicAction}) {
     client = MqttServerClient(broker, '');
+
     /// Set the correct MQTT protocol for mosquito
     client?.setProtocolV311();
+
     /// Add the unsolicited disconnection callback
     client?.onDisconnected = _onDisconnected;
+
     /// Add the successful connection callback
     client?.onConnected = _onConnected;
     _connect();
   }
 
-  Future<void> _onDisconnected() async{
+  Future<void> _onDisconnected() async {
     isConnect = false;
-    await Future.delayed(Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 5));
     _connect();
   }
 
-  Future<void> _onConnected() async{
+  Future<void> _onConnected() async {
     isConnect = true;
   }
 
-  Future<void> _subscribe() async{
+  Future<void> _subscribe() async {
     /// Check we are connected
     if (client?.connectionStatus!.state == MqttConnectionState.connected) {
       log.info('EXAMPLE::Mosquitto client connected');
-        
     } else {
       /// Use status here rather than state if you also want the broker return code.
       log.warning(
           'ERROR Mosquitto client connection failed - disconnecting, status is ${client?.connectionStatus}');
       client?.disconnect();
     }
+
     /// Ok, lets try a subscription
     client?.subscribe(topic, MqttQos.atMostOnce);
     client?.updates!.listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
@@ -64,7 +64,7 @@ class TurbineMqtt {
     //client?.unsubscribe(topic);
   }
 
-  Future<void> _connect() async{
+  Future<void> _connect() async {
     try {
       await client?.connect();
       await _subscribe();
@@ -74,28 +74,27 @@ class TurbineMqtt {
     }
   }
 
-  Future<void> sendAction(TurbineAction action) async{
+  Future<void> sendAction(TurbineAction action) async {
     final builder = MqttClientPayloadBuilder();
     builder.addString(action.toJson());
-    while(!isConnect){
+    while (!isConnect) {
       await Future.delayed(const Duration(milliseconds: 200));
     }
     client?.publishMessage(topicAction, MqttQos.atLeastOnce, builder.payload!);
   }
 
-  Future<void> stopLevel(int level) async{
+  Future<void> stopLevel(int level) async {
     TurbineAction action = TurbineAction(stopLevel: level);
     await sendAction(action);
   }
 
-  Future<void> powerOn() async{
+  Future<void> powerOn() async {
     TurbineAction action = const TurbineAction(power: true);
     await sendAction(action);
   }
 
-  Future<void> powerOff() async{
+  Future<void> powerOff() async {
     TurbineAction action = const TurbineAction(power: false);
-      await sendAction(action);
+    await sendAction(action);
   }
-
 }

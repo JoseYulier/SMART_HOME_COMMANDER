@@ -23,7 +23,7 @@ class _LevelStopPageState extends State<LevelStopPage> {
           children: <Widget>[
             Text(
               'Selected Value: ${levelStop.round().toString()} %',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
             Slider(
               value: levelStop,

@@ -34,7 +34,7 @@ class SettingPageState extends State<SettingPage> {
               padding: const EdgeInsets.all(5.0),
               child: TextFieldImput(
                 label: 'Broker:',
-                icon: Icon(Icons.settings_ethernet),
+                icon: const Icon(Icons.settings_ethernet),
                 controller: textControllerBroker,
               ),
             ),
@@ -45,7 +45,7 @@ class SettingPageState extends State<SettingPage> {
               padding: const EdgeInsets.all(5.0),
               child: TextFieldImput(
                 label: 'Route:',
-                icon: Icon(Icons.location_on),
+                icon: const Icon(Icons.location_on),
                 controller: textControllerRoute,
               ),
             ),
@@ -56,7 +56,7 @@ class SettingPageState extends State<SettingPage> {
               padding: const EdgeInsets.all(5.0),
               child: TextFieldImput(
                 label: 'Action:',
-                icon: Icon(Icons.play_arrow),
+                icon: const Icon(Icons.play_arrow),
                 controller: textControllerAction,
               ),
             ),

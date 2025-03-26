@@ -129,10 +129,10 @@ class HomePage extends StatelessWidget {
             width: 300,
             height: 100,
             child: Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  Text(
+                  const Text(
                     'Turbine Data',
                     textAlign: TextAlign.left,
                     style: TextStyle(
@@ -144,14 +144,14 @@ class HomePage extends StatelessWidget {
                     children: [
                       Text(
                         'Flux rate: ${turbineProvider.rateFluxFlow} lts/s',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 15,
                         ),
                       ),
-                      SizedBox(width: 30),
+                      const SizedBox(width: 30),
                       Text(
                         'Time left: ${turbineProvider.rateFluxFlow} min',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 15,
                         ),
                       ),
@@ -170,7 +170,7 @@ class HomePage extends StatelessWidget {
                 context: context,
                 barrierDismissible: false,
                 builder: (BuildContext context) {
-                  return Center(
+                  return const Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -191,7 +191,7 @@ class HomePage extends StatelessWidget {
                   );
                 },
               );
-              Future.delayed(Duration(seconds: 2), () {
+              Future.delayed(const Duration(seconds: 2), () {
                 // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
               });
