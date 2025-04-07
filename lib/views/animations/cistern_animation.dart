@@ -1,23 +1,19 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
-class WaterTankAnimation extends StatefulWidget {
-  late int levelTank;
-  late int levelStopTank;
+class CisterAnimation extends StatefulWidget {
+  late int levelCistern;
+
   late bool isConnect;
-  WaterTankAnimation(
-      {super.key,
-      required this.levelTank,
-      required this.levelStopTank,
-      required this.isConnect});
+  CisterAnimation(
+      {super.key, required this.levelCistern, required this.isConnect});
 
   @override
-  _WaterTankAnimationState createState() => _WaterTankAnimationState();
+  // ignore: library_private_types_in_public_api
+  _CisterAnimationState createState() => _CisterAnimationState();
 }
 
-class _WaterTankAnimationState extends State<WaterTankAnimation>
+class _CisterAnimationState extends State<CisterAnimation>
     with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
@@ -34,11 +30,11 @@ class _WaterTankAnimationState extends State<WaterTankAnimation>
           alignment: Alignment.bottomCenter,
           children: [
             Container(
-              height: widget.levelTank * 2,
+              height: widget.levelCistern * 2,
               color: Colors.blue,
             ),
             Text(
-              '${widget.levelTank}%',
+              '${widget.levelCistern}%',
               style: const TextStyle(
                   color: Colors.black,
                   fontSize: 25,

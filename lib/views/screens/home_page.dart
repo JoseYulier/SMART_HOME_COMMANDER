@@ -1,4 +1,5 @@
 import 'package:smart_home_commander/providers/turbine_provider.dart';
+import 'package:smart_home_commander/views/animations/cistern_animation.dart';
 import 'package:smart_home_commander/views/animations/water_tank_animation.dart';
 import 'package:smart_home_commander/views/components/custom_button.dart';
 import 'package:smart_home_commander/views/screens/level_stop_page.dart';
@@ -106,16 +107,28 @@ class HomePage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 width: 150,
                 height: 300,
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'Cistern',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold),
-                  ),
+                child: Stack(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'Cistern',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Positioned(
+                      top: 70,
+                      left: 15,
+                      child: CisterAnimation(
+                        isConnect: turbineProvider.isConnect,
+                        levelCistern: turbineProvider.levelCistern,
+                      ),
+                    ),
+                  ],
                 ),
               )
             ],

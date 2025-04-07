@@ -16,6 +16,7 @@ class TurbineMqtt {
       datetimeStart: DateTime.now(),
       secondsLeft: 20,
       levelPercent: 40,
+      levelCistern: 100,
       levelAdc: 340,
       levelPercentStop: 100,
       sensorMax: 0,
@@ -33,12 +34,14 @@ class TurbineMqtt {
 
   Future<void> _subscribe() async {
     int levelPercent = turbineStatus.levelPercent as int;
+    int levelCistern = turbineStatus.levelCistern as int;
     int levelAdc = turbineStatus.levelAdc as int;
     while (true) {
       _status.add(turbineStatus);
       await Future.delayed(const Duration(seconds: 3));
       if (turbineStatus.running == 1) {
         levelPercent++;
+        levelCistern--;
         levelAdc += 4;
       } else {
         levelPercent--;
@@ -53,6 +56,7 @@ class TurbineMqtt {
         turbineStatus.running = 0;
       }
       turbineStatus.levelPercent = levelPercent;
+      turbineStatus.levelCistern = levelCistern;
       turbineStatus.levelAdc = levelAdc;
     }
   }

@@ -15,12 +15,13 @@ class SettingPage extends StatefulWidget {
 
 class SettingPageState extends State<SettingPage> {
   final GlobalKey<FormState> _formKey = GlobalKey();
+  TextEditingController textControllerBroker = TextEditingController();
+  TextEditingController textControllerRoute = TextEditingController();
+  TextEditingController textControllerAction = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final turbineModel = Provider.of<TurbineProvider>(context);
-    TextEditingController textControllerBroker = TextEditingController();
-    TextEditingController textControllerRoute = TextEditingController();
-    TextEditingController textControllerAction = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,

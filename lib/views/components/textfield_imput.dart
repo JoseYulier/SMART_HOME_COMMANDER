@@ -4,14 +4,14 @@ class TextFieldImput extends StatelessWidget {
   final String label;
   final Icon icon;
   final TextEditingController? controller;
-  //final String? Function(String?)? validator;
+  final String? Function(String?)? validator;
 
   const TextFieldImput({
     super.key,
     required this.label,
     required this.icon,
     this.controller,
-    // this.validator,
+    this.validator,
   });
 
   @override

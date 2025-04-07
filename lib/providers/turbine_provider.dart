@@ -5,6 +5,7 @@ import 'package:smart_home_commander/service/turbine/status.dart';
 class TurbineProvider extends ChangeNotifier {
   bool _isConnect = false;
   int _levelPercent = 0;
+  int _levelCistern = 100;
   int _levelStopTank = 100;
   int _rateFluxFlow = 0;
 
@@ -12,6 +13,7 @@ class TurbineProvider extends ChangeNotifier {
 
   bool get isConnect => _isConnect;
   int get levelPercent => _levelPercent;
+  int get levelCistern => _levelCistern;
   int get levelStopTank => _levelStopTank;
   int get rateFluxFlow => _rateFluxFlow;
 
@@ -29,6 +31,8 @@ class TurbineProvider extends ChangeNotifier {
     _isConnect = status.running == 1 ? true : false;
     _levelPercent =
         status.levelPercent != null ? status.levelPercent as int : -1;
+    _levelCistern =
+        status.levelCistern != null ? status.levelCistern as int : -1;
     _levelStopTank =
         status.levelPercentStop != null ? status.levelPercentStop as int : -1;
     _rateFluxFlow = status.rate != null ? status.rate as int : -1;
