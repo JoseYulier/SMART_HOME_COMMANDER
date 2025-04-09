@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:smart_home_commander/providers/turbine_provider.dart';
 import 'package:smart_home_commander/views/components/custom_button.dart';
 
 class LevelStopPage extends StatefulWidget {
@@ -12,6 +14,7 @@ class _LevelStopPageState extends State<LevelStopPage> {
   double levelStop = 0;
   @override
   Widget build(BuildContext context) {
+    Provider.of<TurbineProvider>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -53,7 +56,11 @@ class _LevelStopPageState extends State<LevelStopPage> {
                       );
                     }),
                 CustomStatefulButton(
-                    text: 'Accept', color: Colors.green, onPressed: () {}),
+                    text: 'Accept',
+                    color: Colors.green,
+                    onPressed: () {
+                      savelevelStop();
+                    }),
               ],
             ),
           ],
@@ -62,3 +69,5 @@ class _LevelStopPageState extends State<LevelStopPage> {
     );
   }
 }
+
+void savelevelStop() {}

@@ -17,7 +17,10 @@ class TurbineMqtt {
   bool isConnect = false;
 
   TurbineMqtt(
-      {required this.broker, required this.topic, required this.topicAction}) {
+      {required this.broker,
+      required this.topic,
+      required this.topicAction,
+      required levelPercentStop}) {
     client = MqttServerClient(broker, '');
 
     /// Set the correct MQTT protocol for mosquito

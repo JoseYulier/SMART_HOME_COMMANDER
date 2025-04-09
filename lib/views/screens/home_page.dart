@@ -182,29 +182,51 @@ class HomePage extends StatelessWidget {
               showDialog(
                 context: context,
                 barrierDismissible: false,
-                builder: (BuildContext context) {
-                  return const Center(
-                    child: Column(
+                builder: (context) => Dialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16.0),
+                  ),
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  child: Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 10.0,
+                          offset: Offset(0.0, 10.0),
+                        )
+                      ],
+                    ),
+                    width: 100,
+                    height: 100,
+                    child: const Column(
                       mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         CircularProgressIndicator(
                           valueColor:
                               AlwaysStoppedAnimation<Color>(Colors.blue),
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: 14),
                         Text(
-                          'Update Status...',
+                          "Update Status...",
                           style: TextStyle(
-                              fontStyle: FontStyle.normal,
-                              fontSize: 16,
-                              color: Colors.white),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ],
                     ),
-                  );
-                },
+                  ),
+                ),
               );
-              Future.delayed(const Duration(seconds: 2), () {
+
+              Future.delayed(const Duration(seconds: 3), () {
                 // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
               });
