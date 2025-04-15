@@ -5,7 +5,6 @@ class TurbineStatus {
   DateTime? datetimeStart;
   int? secondsLeft;
   int? levelPercent;
-  int? levelCistern;
   int? levelAdc;
   int? levelPercentStop;
   int? sensorMax;
@@ -21,7 +20,6 @@ class TurbineStatus {
     this.datetimeStart,
     this.secondsLeft,
     this.levelPercent,
-    this.levelCistern,
     this.levelAdc,
     this.levelPercentStop,
     this.sensorMax,
@@ -45,7 +43,6 @@ class TurbineStatus {
             : DateTime.parse(json["datetime_start"]),
         secondsLeft: json["seconds_left"],
         levelPercent: json["level_percent"],
-        levelCistern: json["level_cistern"],
         levelAdc: json["level_adc"],
         levelPercentStop: json["level_percent_stop"],
         sensorMax: json["sensor_max"],
@@ -62,7 +59,6 @@ class TurbineStatus {
         "datetime_start": datetimeStart?.toIso8601String(),
         "seconds_left": secondsLeft,
         "level_percent": levelPercent,
-        "level_cistern": levelCistern,
         "level_adc": levelAdc,
         "level_percent_stop": levelPercentStop,
         "sensor_max": sensorMax,

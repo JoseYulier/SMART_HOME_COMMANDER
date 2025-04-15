@@ -178,7 +178,7 @@ class HomePage extends StatelessWidget {
           CustomButtonFul(
             powerStatus: turbineProvider.isConnect,
             onPressed: () {
-              turbineProvider.togglePower();
+              //turbineProvider.togglePower();
               showDialog(
                 context: context,
                 barrierDismissible: false,
@@ -225,11 +225,15 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               );
-
-              Future.delayed(const Duration(seconds: 3), () {
+              turbineProvider.togglePowerWaitConfirm().then((value){
                 // ignore: use_build_context_synchronously
                 Navigator.of(context).pop();
+                print("completed $value");
               });
+              // Future.delayed(const Duration(seconds: 3), () {
+              //   // ignore: use_build_context_synchronously
+              //   Navigator.of(context).pop();
+              // });
             },
           ),
         ],

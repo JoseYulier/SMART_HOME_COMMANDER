@@ -15,7 +15,7 @@ Future<void> main() async{
   Logger.root.onRecord.listen((record) {
     print('${record.level.name}: ${record.time}: ${record.message}');
   });
-  
+
   // Create a turbine object
   final turbine = TurbineMqtt(broker: "192.168.1.94", topic: "casa_rayner/turbina", topicAction: "casa_rayner/turbina/action");
 
