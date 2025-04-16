@@ -11,10 +11,13 @@ class LevelStopPage extends StatefulWidget {
 }
 
 class _LevelStopPageState extends State<LevelStopPage> {
-  double levelStop = 0;
+  int levelStop = -1;
   @override
   Widget build(BuildContext context) {
-    Provider.of<TurbineProvider>(context);
+    final turbineProvider = Provider.of<TurbineProvider>(context);
+    if (levelStop == -1){
+      levelStop = turbineProvider.levelStopTank;
+    }
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -32,14 +35,14 @@ class _LevelStopPageState extends State<LevelStopPage> {
                   fontWeight: FontWeight.bold),
             ),
             Slider(
-              value: levelStop,
+              value: levelStop.toDouble(),
               min: 0,
               max: 100,
               divisions: 20,
               label: levelStop.round().toString(),
               onChanged: (double value) {
                 setState(() {
-                  levelStop = value;
+                  levelStop = value.toInt();
                 });
               },
             ),
@@ -59,7 +62,10 @@ class _LevelStopPageState extends State<LevelStopPage> {
                     text: 'Accept',
                     color: Colors.green,
                     onPressed: () {
-                      savelevelStop();
+                      turbineProvider.fillTo(levelStop);
+                      Navigator.pop(
+                        context,
+                      );
                     }),
               ],
             ),
@@ -69,5 +75,3 @@ class _LevelStopPageState extends State<LevelStopPage> {
     );
   }
 }
-
-void savelevelStop() {}
