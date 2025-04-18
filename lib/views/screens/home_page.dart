@@ -156,14 +156,14 @@ class HomePage extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        'Flux rate: ${turbineProvider.rateFluxFlow} lts/s',
+                        'Flux rate: ${(turbineProvider.rateFluxFlow/1000).toInt()} L/min',
                         style: const TextStyle(
                           fontSize: 15,
                         ),
                       ),
                       const SizedBox(width: 30),
                       Text(
-                        'Time left: ${turbineProvider.rateFluxFlow} min',
+                        'Time left: ${(turbineProvider.secondsLeft/60).toInt()} min',
                         style: const TextStyle(
                           fontSize: 15,
                         ),

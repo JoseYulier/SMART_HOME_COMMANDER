@@ -16,11 +16,22 @@ class SettingPage extends StatefulWidget {
 class SettingPageState extends State<SettingPage> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   TextEditingController textControllerBroker = TextEditingController();
-  TextEditingController textControllerRoute = TextEditingController();
-  TextEditingController textControllerAction = TextEditingController();
+  TextEditingController textControllerTopic = TextEditingController();
+  TextEditingController textControllerTopicAction = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    final turbineModel = Provider.of<TurbineProvider>(context);
+    final turbineProvider = Provider.of<TurbineProvider>(context);
+    //Show initial values
+    if (textControllerBroker.text == ""){
+      textControllerBroker.text = turbineProvider.dataSetting.broker;
+    }
+    if (textControllerTopic.text == ""){
+      textControllerTopic.text = turbineProvider.dataSetting.topic;
+    }
+    if (textControllerTopicAction.text == ""){
+      textControllerTopicAction.text = turbineProvider.dataSetting.topicAction;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -45,9 +56,9 @@ class SettingPageState extends State<SettingPage> {
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: TextFieldImput(
-                label: 'Route:',
+                label: 'Topic:',
                 icon: const Icon(Icons.location_on),
-                controller: textControllerRoute,
+                controller: textControllerTopic,
               ),
             ),
             const Text('Example: casa_rayner/turbina',
@@ -56,9 +67,9 @@ class SettingPageState extends State<SettingPage> {
             Padding(
               padding: const EdgeInsets.all(5.0),
               child: TextFieldImput(
-                label: 'Action:',
+                label: 'Topic Action:',
                 icon: const Icon(Icons.play_arrow),
-                controller: textControllerAction,
+                controller: textControllerTopicAction,
               ),
             ),
             const Text('Example: casa_rayner/turbina/action',
@@ -80,10 +91,13 @@ class SettingPageState extends State<SettingPage> {
                     color: Colors.green,
                     onPressed: () {
                       if (_formKey.currentState?.validate() ?? false) {
-                        turbineModel.saveSettings(
-                            broker: textControllerBroker.text,
-                            route: textControllerRoute.text,
-                            action: textControllerAction.text);
+                        turbineProvider.dataSetting.broker = textControllerBroker.text;
+                        turbineProvider.dataSetting.topic = textControllerTopic.text;
+                        turbineProvider.dataSetting.topicAction = textControllerTopicAction.text;
+                        turbineProvider.saveSettings();
+                        Navigator.pop(
+                          context,
+                        );
                       }
                     }),
               ],

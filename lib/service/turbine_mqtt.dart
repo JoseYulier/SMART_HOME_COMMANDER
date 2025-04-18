@@ -67,13 +67,19 @@ class TurbineMqtt {
   }
 
   Future<void> _connect() async {
-    try {
-      await client?.connect();
-      await _subscribe();
-    } on Exception catch (e) {
-      log.severe('Client exception - $e');
-      client?.disconnect();
-    }
+    //while(!isConnect){
+      try {
+        print("connecting");
+        await client?.connect();
+        await _subscribe();
+        print("returning");
+        return;
+      } on Exception catch (e) {
+        log.severe('Client exception - $e');
+        client?.disconnect();
+      }
+      await Future.delayed(const Duration(seconds: 5));
+    //}
   }
 
   Future<void> sendAction(TurbineAction action) async {

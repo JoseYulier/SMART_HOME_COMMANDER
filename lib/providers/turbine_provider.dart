@@ -1,13 +1,23 @@
 import 'package:flutter/foundation.dart';
-import 'package:smart_home_commander/service/turbine_mqtt_fake.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smart_home_commander/service/turbine_mqtt.dart';
 import 'package:smart_home_commander/service/turbine/status.dart';
 
+
+class DataSetting {
+  String broker = "";
+  String topic = "";
+  String topicAction = "";
+}
+
 class TurbineProvider extends ChangeNotifier {
+  DataSetting dataSetting = DataSetting();
   bool _isConnect = false;
   int _levelPercent = 0;
   int _levelCistern = 100;
   int _levelStopTank = 100;
-  int _rateFluxFlow = 0;
+  int _rateFluxFlow = 0;  // Wather flow in mL/min
+  int _secondsLeft = 0;
 
   TurbineMqtt? _turbineMqtt;
 
@@ -16,12 +26,22 @@ class TurbineProvider extends ChangeNotifier {
   int get levelCistern => _levelCistern;
   int get levelStopTank => _levelStopTank;
   int get rateFluxFlow => _rateFluxFlow;
+  int get secondsLeft => _secondsLeft;
 
   TurbineProvider() {
+    init();
+  }
+
+  Future<void> init() async{
+    await loadSetting();
+    await initTurbineMqtt();
+  }
+
+  Future<void> initTurbineMqtt() async{
     _turbineMqtt = TurbineMqtt(
-        broker: "192.168.1.94",
-        topic: "casa_rayner/turbina",
-        topicAction: "casa_rayner/turbina/action");
+        broker: dataSetting.broker,
+        topic: dataSetting.topic,
+        topicAction: dataSetting.topicAction);
     // Get status turbine stream
     _turbineMqtt?.status.listen((TurbineStatus status) => updateStatus(status));
   }
@@ -34,6 +54,7 @@ class TurbineProvider extends ChangeNotifier {
     _levelStopTank =
         status.levelPercentStop != null ? status.levelPercentStop as int : -1;
     _rateFluxFlow = status.rate != null ? status.rate as int : -1;
+    _secondsLeft = status.secondsLeft != null ? status.secondsLeft as int : -1;
     notifyListeners();
   }
 
@@ -92,11 +113,18 @@ class TurbineProvider extends ChangeNotifier {
     }
   }
 
-  void saveSettings(
-      {required String broker, required String route, String? action}) {
-    _turbineMqtt =
-        TurbineMqtt(broker: broker, topic: route, topicAction: action ?? '');
-    // Get status turbine stream
-    _turbineMqtt?.status.listen((TurbineStatus status) => updateStatus(status));
+  void saveSettings() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString("broker", dataSetting.broker);
+    await prefs.setString("topic", dataSetting.topic);
+    await prefs.setString("topic_action", dataSetting.topicAction);
+    init();
+  }
+
+  Future<void> loadSetting() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    dataSetting.broker = prefs.getString("broker") ?? "";
+    dataSetting.topic = prefs.getString("topic") ?? "";
+    dataSetting.topicAction = prefs.getString("topic_action") ?? "";
   }
 }
